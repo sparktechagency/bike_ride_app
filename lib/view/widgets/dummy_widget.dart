@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget {
   final Color? fontColor;
   final FontWeight? fontWeight;
   final Widget? prefix;
+  final Color? backgroundColor;
 
   const CustomButton({
     super.key,
@@ -23,6 +24,7 @@ class CustomButton extends StatelessWidget {
     this.fontColor,
     this.fontWeight,
     this.prefix,
+    this.backgroundColor,
   });
 
   @override
@@ -34,7 +36,7 @@ class CustomButton extends StatelessWidget {
           height: height ?? 50.h,
           width: width ?? double.infinity,
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
+            color: backgroundColor ?? AppColors.primaryColor,
             borderRadius: BorderRadius.circular(12),
             // boxShadow: [
             //   BoxShadow(
@@ -54,10 +56,7 @@ class CustomButton extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black.withOpacity(0.2), // top shadow
-                  Colors.transparent, // fade to nothing
-                ],
+                colors: [Colors.black.withOpacity(0.2), Colors.transparent],
               ),
             ),
           ),
@@ -67,6 +66,8 @@ class CustomButton extends StatelessWidget {
         Positioned.fill(
           child: TextButton(
             style: TextButton.styleFrom(
+              // alignment: Alignment.center,
+              padding: EdgeInsets.all(0),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -74,17 +75,16 @@ class CustomButton extends StatelessWidget {
             ),
             onPressed: onPressed,
             child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (prefix != null) ...[
-                  ?prefix,
-                  SizedBox(width: 8.w),
-                ],
+                if (prefix != null) ...[?prefix, SizedBox(width: 8.w)],
                 CustomText(
                   text: label,
                   fontSize: fontSize ?? 20.sp,
                   color: fontColor ?? AppColors.secondaryColor,
                   fontWeight: fontWeight ?? FontWeight.w600,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),

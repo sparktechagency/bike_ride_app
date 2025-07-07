@@ -18,8 +18,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/authLogo.svg
   SvgGenImage get authLogo => const SvgGenImage('assets/icons/authLogo.svg');
 
+  /// File path: assets/icons/calenderIcon.svg
+  SvgGenImage get calenderIcon =>
+      const SvgGenImage('assets/icons/calenderIcon.svg');
+
   /// File path: assets/icons/coinIcon.svg
   SvgGenImage get coinIcon => const SvgGenImage('assets/icons/coinIcon.svg');
+
+  /// File path: assets/icons/endIcon.svg
+  SvgGenImage get endIcon => const SvgGenImage('assets/icons/endIcon.svg');
 
   /// File path: assets/icons/groupIcon.svg
   SvgGenImage get groupIcon => const SvgGenImage('assets/icons/groupIcon.svg');
@@ -39,6 +46,10 @@ class $AssetsIconsGen {
   SvgGenImage get onBoardingIcon3 =>
       const SvgGenImage('assets/icons/onBoardingIcon3.svg');
 
+  /// File path: assets/icons/pitStopIcon.svg
+  SvgGenImage get pitStopIcon =>
+      const SvgGenImage('assets/icons/pitStopIcon.svg');
+
   /// File path: assets/icons/rideSchedule.svg
   SvgGenImage get rideSchedule =>
       const SvgGenImage('assets/icons/rideSchedule.svg');
@@ -50,18 +61,25 @@ class $AssetsIconsGen {
   SvgGenImage get splashIcon =>
       const SvgGenImage('assets/icons/splashIcon.svg');
 
+  /// File path: assets/icons/startIcon.svg
+  SvgGenImage get startIcon => const SvgGenImage('assets/icons/startIcon.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     authLogo,
+    calenderIcon,
     coinIcon,
+    endIcon,
     groupIcon,
     homeIcon,
     onBoardingIcon1,
     onBoardingIcon2,
     onBoardingIcon3,
+    pitStopIcon,
     rideSchedule,
     ridesIcon,
     splashIcon,
+    startIcon,
   ];
 }
 

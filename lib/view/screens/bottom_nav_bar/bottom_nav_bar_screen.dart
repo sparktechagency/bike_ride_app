@@ -1,5 +1,6 @@
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/gen/assets.gen.dart';
+import 'package:bike_ride_app/view/screens/groups/groups_screen.dart';
 import 'package:bike_ride_app/view/screens/home/home_screen.dart';
 import 'package:bike_ride_app/view/widgets/custom_container.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
@@ -25,7 +26,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   final List<Widget> _screens = [
     // Center(child: CustomText(text: 'Home')),
     HomeScreen(),
-    Center(child: CustomText(text: 'Groups')),
+    // Center(child: CustomText(text: 'Groups')),
+    GroupsScreen(),
     Center(child: CustomText(text: 'Schedule')),
     Center(child: CustomText(text: 'Rides')),
   ];

@@ -1,3 +1,4 @@
+import 'package:bike_ride_app/app/routes/app_routes.dart';
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/gen/assets.gen.dart';
 import 'package:bike_ride_app/view/widgets/custom_container.dart';
@@ -7,6 +8,7 @@ import 'package:bike_ride_app/view/widgets/dummy_widget.dart';
 import 'package:bike_ride_app/view/widgets/ride_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -282,21 +284,26 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       actions: [
-        Stack(
-          alignment: Alignment.topRight,
-          children: [
-            Icon(
-              Icons.notifications,
-              size: 30.h,
-              color: AppColors.secondaryColor,
-            ),
-            CustomContainer(
-              height: 8.h,
-              width: 8.w,
-              shape: BoxShape.circle,
-              color: AppColors.errorColor,
-            ),
-          ],
+        GestureDetector(
+          onTap: (){
+            Get.toNamed(AppRoutes.notificationsScreen);
+          },
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Icon(
+                Icons.notifications,
+                size: 30.h,
+                color: AppColors.secondaryColor,
+              ),
+              CustomContainer(
+                height: 8.h,
+                width: 8.w,
+                shape: BoxShape.circle,
+                color: AppColors.errorColor,
+              ),
+            ],
+          ),
         ),
         SizedBox(width: 16.w),
       ],

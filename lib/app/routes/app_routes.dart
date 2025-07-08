@@ -6,6 +6,14 @@ import 'package:bike_ride_app/view/screens/auth/sign_in/sign_in_screen.dart';
 import 'package:bike_ride_app/view/screens/auth/sign_up/sign_up_screen.dart';
 import 'package:bike_ride_app/view/screens/auth/splash_screen/splash_screen.dart';
 import 'package:bike_ride_app/view/screens/bottom_nav_bar/bottom_nav_bar_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/create_group/create_group_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/group_details/all_member/all_member_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/group_details/group_details_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/group_details/invite_members/invite_members_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/group_details/media/media_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/group_message/group_message_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/groups_screen.dart';
+import 'package:bike_ride_app/view/screens/groups/my_groups/my_groups_screen.dart';
 import 'package:bike_ride_app/view/screens/home/home_screen.dart';
 import 'package:bike_ride_app/view/screens/home/notification/notification_screen.dart';
 import 'package:bike_ride_app/view/screens/set_up_profile/set_up_profile_screen.dart';
@@ -22,9 +30,15 @@ class AppRoutes {
   static const String setUpProfileScreen = '/setUpProfileScreen';
   static const String bottomNavBarScreen = '/bottomNavBarScreen';
   static const String homeScreen = '/homeScreen';
-
-  // static const String commentScreen = '/commentScreen';
   static const String notificationsScreen = '/notificationsScreen';
+  static const String groupScreen = '/groupScreen';
+  static const String myGroupScreen = '/myGroupScreen';
+  static const String groupMessageScreen = '/groupMessageScreen';
+  static const String groupDetailsScreen = '/groupDetailsScreen';
+  static const String allMemberScreen = '/allMemberScreen';
+  static const String inviteMemberScreen = '/inviteMemberScreen';
+  static const String mediaScreen = '/mediaScreen';
+  static const String createGroupScreen = '/createGroupScreen';
 
   // static const String exploreScreen = '/exploreScreen';
   // static const String peopleByLocationScreen = '/peopleByLocationScreen';
@@ -48,6 +62,13 @@ class AppRoutes {
     GetPage(name: bottomNavBarScreen, page: () => BottomNavBarScreen()),
     GetPage(name: homeScreen, page: () => HomeScreen()),
     GetPage(name: notificationsScreen, page: () => NotificationScreen()),
-    // GetPage(name: reelsScreen, page: () => ReelsScreen(reelsList: reelsList)),
+    GetPage(name: groupScreen, page: () => GroupsScreen()),
+    GetPage(name: myGroupScreen, page: () => MyGroupsScreen()),
+    GetPage(name: groupMessageScreen, page: () => InboxMessageScreen()),
+    GetPage(name: groupDetailsScreen, page: () => GroupDetailsScreen()),
+    GetPage(name: allMemberScreen, page: () => AllMemberScreen()),
+    GetPage(name: inviteMemberScreen, page: () => InviteMembersScreen()),
+    GetPage(name: mediaScreen, page: () => MediaScreen()),
+    GetPage(name: createGroupScreen, page: () => CreateGroupScreen()),
   ];
 }

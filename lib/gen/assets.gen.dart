@@ -34,6 +34,21 @@ class $AssetsIconsGen {
   /// File path: assets/icons/homeIcon.svg
   SvgGenImage get homeIcon => const SvgGenImage('assets/icons/homeIcon.svg');
 
+  /// File path: assets/icons/inviteMemberIcon.svg
+  SvgGenImage get inviteMemberIcon =>
+      const SvgGenImage('assets/icons/inviteMemberIcon.svg');
+
+  /// File path: assets/icons/mediaIcon.svg
+  SvgGenImage get mediaIcon => const SvgGenImage('assets/icons/mediaIcon.svg');
+
+  /// File path: assets/icons/membersIcon.svg
+  SvgGenImage get membersIcon =>
+      const SvgGenImage('assets/icons/membersIcon.svg');
+
+  /// File path: assets/icons/notificationIcon.svg
+  SvgGenImage get notificationIcon =>
+      const SvgGenImage('assets/icons/notificationIcon.svg');
+
   /// File path: assets/icons/onBoardingIcon1.svg
   SvgGenImage get onBoardingIcon1 =>
       const SvgGenImage('assets/icons/onBoardingIcon1.svg');
@@ -72,6 +87,10 @@ class $AssetsIconsGen {
     endIcon,
     groupIcon,
     homeIcon,
+    inviteMemberIcon,
+    mediaIcon,
+    membersIcon,
+    notificationIcon,
     onBoardingIcon1,
     onBoardingIcon2,
     onBoardingIcon3,

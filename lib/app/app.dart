@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
       designSize: Size(393, 852),
       builder: (context, child) {
         return GetMaterialApp(
-            title: 'Themikg',
+            title: 'Bike Ride',
             debugShowCheckedModeBanner: false,
-            home: SplashScreen(),
+            // home: SplashScreen(),
             initialRoute: AppRoutes.splashScreen,
             getPages: AppRoutes.routes,
             // themeMode: ThemeMode.light,

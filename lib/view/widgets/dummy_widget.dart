@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
   final FontWeight? fontWeight;
   final Widget? prefix;
   final Color? backgroundColor;
+  final double? borderRadius;
 
   const CustomButton({
     super.key,
@@ -25,6 +26,7 @@ class CustomButton extends StatelessWidget {
     this.fontWeight,
     this.prefix,
     this.backgroundColor,
+    this.borderRadius
   });
 
   @override
@@ -37,7 +39,7 @@ class CustomButton extends StatelessWidget {
           width: width ?? double.infinity,
           decoration: BoxDecoration(
             color: backgroundColor ?? AppColors.primaryColor,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(borderRadius??12),
             // boxShadow: [
             //   BoxShadow(
             //     color: Colors.black.withOpacity(0.3),
@@ -52,7 +54,7 @@ class CustomButton extends StatelessWidget {
         Positioned.fill(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(borderRadius??12),
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -70,7 +72,7 @@ class CustomButton extends StatelessWidget {
               padding: EdgeInsets.all(0),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(borderRadius??12),
               ),
             ),
             onPressed: onPressed,

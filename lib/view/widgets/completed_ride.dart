@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class RideDetails extends StatefulWidget {
-  const RideDetails({
+class CompletedRide extends StatefulWidget {
+  const CompletedRide({
     super.key,
     // required this.rideDetailsIcon,
     required this.rideTitle,
@@ -27,16 +27,17 @@ class RideDetails extends StatefulWidget {
   final Widget button;
 
   @override
-  State<RideDetails> createState() => _RideDetailsState();
+  State<CompletedRide> createState() => _CompletedRideState();
 }
 
-class _RideDetailsState extends State<RideDetails> {
+class _CompletedRideState extends State<CompletedRide> {
   final List<String> rideDetailsIcon = [
     Assets.icons.ridesIcon.path,
     Assets.icons.groupIcon.path,
     Assets.icons.calenderIcon.path,
     Assets.icons.startIcon.path,
     Assets.icons.endIcon.path,
+    Assets.icons.distanceIcon.path,
     Assets.icons.pitStopIcon.path,
   ];
 

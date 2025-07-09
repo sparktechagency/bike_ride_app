@@ -1,9 +1,12 @@
+import 'package:bike_ride_app/app/helpers/prefs_helper.dart';
+import 'package:bike_ride_app/app/routes/app_routes.dart';
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/view/widgets/custom_container.dart';
 import 'package:bike_ride_app/view/widgets/custom_network_image.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class MyGroupsScreen extends StatefulWidget {
   const MyGroupsScreen({super.key});
@@ -13,6 +16,8 @@ class MyGroupsScreen extends StatefulWidget {
 }
 
 class _MyGroupsScreenState extends State<MyGroupsScreen> {
+  final PrefsHelper _prefsHelper = PrefsHelper();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +31,12 @@ class _MyGroupsScreenState extends State<MyGroupsScreen> {
           return Padding(
             padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 8.h),
             child: ListTile(
+              onTap: () async {
+                Get.toNamed(
+                  AppRoutes.groupMessageScreen,
+                  arguments: {'fromWhere': 'myGroup'},
+                );
+              },
               leading: CustomNetworkImage(
                 imageUrl: "https://i.pravatar.cc/150?img=31",
                 height: 50.h,

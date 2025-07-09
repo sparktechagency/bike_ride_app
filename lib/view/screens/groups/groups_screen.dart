@@ -80,7 +80,10 @@ class _GroupsScreenState extends State<GroupsScreen> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       onTap: () {
-                        Get.toNamed(AppRoutes.groupMessageScreen);
+                        Get.toNamed(
+                          AppRoutes.groupMessageScreen,
+                          arguments: {'fromWhere': 'otherGroups'},
+                        );
                       },
                       contentPadding: EdgeInsets.only(
                         left: 0,
@@ -88,7 +91,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                         bottom: 16.h,
                       ),
                       leading: CustomNetworkImage(
-                        imageUrl: "https://i.pravatar.cc/150?img=31",
+                        imageUrl: "https://i.pravatar.cc/150?img=${index + 1}",
                         height: 50.h,
                         width: 50.w,
                         boxShape: BoxShape.circle,

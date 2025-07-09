@@ -256,36 +256,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: Row(
-        children: [
-          CustomContainer(
-            alignment: Alignment.center,
-            height: 52.h,
-            width: 52.w,
-            shape: BoxShape.circle,
-            border: Border.all(color: AppColors.secondaryColor, width: 3),
-            child: CustomNetworkImage(
-              imageUrl: "https://i.pravatar.cc/150?img=31",
-              borderRadius: BorderRadius.circular(1000.r),
-            ),
-          ),
-          SizedBox(width: 16.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                text: 'De Suarz !',
-                fontSize: 20.sp,
-                color: AppColors.secondaryColor,
+      title: GestureDetector(
+        onTap: () {
+          Get.toNamed(AppRoutes.profileScreen);
+        },
+        child: Row(
+          children: [
+            CustomContainer(
+              alignment: Alignment.center,
+              height: 52.h,
+              width: 52.w,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.secondaryColor, width: 3),
+              child: CustomNetworkImage(
+                imageUrl: "https://i.pravatar.cc/150?img=31",
+                borderRadius: BorderRadius.circular(1000.r),
               ),
-              CustomText(text: '+1398403280820', color: AppColors.grey400),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(width: 16.w),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: 'De Suarz !',
+                  fontSize: 20.sp,
+                  color: AppColors.secondaryColor,
+                ),
+                CustomText(text: '+1398403280820', color: AppColors.grey400),
+              ],
+            ),
+          ],
+        ),
       ),
       actions: [
         GestureDetector(
-          onTap: (){
+          onTap: () {
             Get.toNamed(AppRoutes.notificationsScreen);
           },
           child: Stack(

@@ -28,11 +28,13 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final ImagePickerHelper _imagePickerHelper = ImagePickerHelper();
+  final fromWhere = Get.arguments ?? '';  // Get argument passed
+
   File? _image;
   final List<Map<String, dynamic>> messages = [
     {
       "text":
-          "Hey there! Haven't seen long day . where are you? can we meet in this sunday . i'm planning about to host a dinner with you",
+      "Hey there! Haven't seen long day . where are you? can we meet in this sunday . i'm planning about to host a dinner with you",
       "isMe": false,
       "type": "text",
     },
@@ -43,7 +45,7 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
     },
     {
       "text":
-          "Hi! How are you?. where are you? can we meet in this sunday . i'm planning about to host a dinner with you",
+      "Hi! How are you?. where are you? can we meet in this sunday . i'm planning about to host a dinner with you",
       "isMe": true,
       "type": "text",
     },
@@ -51,37 +53,8 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
     {"text": "I'm good, thanks!", "isMe": false, "type": "text"},
     {"text": "Great to hear!", "isMe": true, "type": "text"},
   ];
-  final List<String> bottomSheetButton = [
-    'View Profile',
-    'Media',
-    'Block Profile',
-  ];
 
-  // List<VoidCallback> bottomSheetButtonAction(BuildContext context) {
-  //   return [
-  //         () {
-  //       Get.toNamed(AppRoutes.userProfileScreen);
-  //     },
-  //         () {
-  //       ///for button 2 action
-  //       Get.toNamed(AppRoutes.mediaScreen);
-  //     },
-  //         () {
-  //       _showDialog(context);
-  //     },
-  //   ];
-  // }
-
-  void _showDialog(BuildContext context) {
-    customPopUpWidget(
-      context: context,
-      title: "Block",
-      subtitle: 'Are you sure want to block this user?',
-      firstButton: 'Cancel',
-      lastButton: 'Block',
-    );
-  }
-
+  // Send message
   void sendMessage() {
     if (_controller.text.trim().isEmpty) return;
     setState(() {
@@ -102,54 +75,20 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
     });
   }
 
-  Future<void> _getPhotoFromGallery() async {
-    final image = await _imagePickerHelper.pickFromGallery();
-    if (image != null) {
-      setState(() {
-        _image = image;
-        messages.add({'image': _image, "isMe": true, 'type': 'image'});
-      });
-    }
-    //scroll to the latest message
-    Future.delayed(Duration(milliseconds: 100), () {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      );
-    });
-  }
-
-  Future<void> _getPhotoFromCamera() async {
-    final image = await _imagePickerHelper.pickFromCamera();
-    if (image != null) {
-      setState(() {
-        _image = image;
-        messages.add({'image': _image, "isMe": true, 'type': 'image'});
-      });
-    }
-    //scroll to the latest message
-    Future.delayed(Duration(milliseconds: 100), () {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
-      // extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: false,
         titleSpacing: 0,
-        // leading: SizedBox.shrink(),
         title: ListTile(
           onTap: () {
-            Get.toNamed(AppRoutes.groupDetailsScreen);
+            // Navigate based on the 'fromWhere' argument
+            if (fromWhere == 'myGroup') {
+              Get.toNamed(AppRoutes.myGroupDetailsScreen);
+            } else {
+              Get.toNamed(AppRoutes.groupDetailsScreen);
+            }
           },
           leading: CustomNetworkImage(
             imageUrl: "https://i.pravatar.cc/150?img=38",
@@ -213,17 +152,11 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
                                   context: context,
                                   buttons: ['Gallery', 'Camera'],
                                   onPressedCallbacks: [
-                                    () async {
-                                      await _getPhotoFromGallery();
-                                      if (_image != null) {
-                                        Get.back();
-                                      }
+                                        () async {
+                                      // Add photo picker functionality
                                     },
-                                    () async {
-                                      await _getPhotoFromCamera();
-                                      if (_image != null) {
-                                        Get.back();
-                                      }
+                                        () async {
+                                      // Add photo picker functionality
                                     },
                                   ],
                                 );
@@ -266,7 +199,6 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
-        // crossAxisAlignment:isMe? CrossAxisAlignment.end:CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: isMe
@@ -276,22 +208,22 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
               isMe
                   ? SizedBox.shrink()
                   : Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        CustomNetworkImage(
-                          imageUrl: 'https://i.pravatar.cc/150?img=40',
-                          height: 30.h,
-                          width: 30.w,
-                          boxShape: BoxShape.circle,
-                        ),
-                        CustomContainer(
-                          height: 8.h,
-                          width: 8.w,
-                          color: Color(0xFF1A514B),
-                          shape: BoxShape.circle,
-                        ),
-                      ],
-                    ),
+                alignment: Alignment.bottomRight,
+                children: [
+                  CustomNetworkImage(
+                    imageUrl: 'https://i.pravatar.cc/150?img=40',
+                    height: 30.h,
+                    width: 30.w,
+                    boxShape: BoxShape.circle,
+                  ),
+                  CustomContainer(
+                    height: 8.h,
+                    width: 8.w,
+                    color: Color(0xFF1A514B),
+                    shape: BoxShape.circle,
+                  ),
+                ],
+              ),
               SizedBox(width: 8.w),
               Column(
                 crossAxisAlignment: isMe
@@ -320,24 +252,23 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
                     ),
                     child: messages[index]['type'] == 'text'
                         ? CustomText(
-                            text: messages[index]['text'],
-                            textOverflow: TextOverflow.fade,
-                            textAlign: TextAlign.start,
-                          )
+                      text: messages[index]['text'],
+                      textOverflow: TextOverflow.fade,
+                      textAlign: TextAlign.start,
+                    )
                         : messages[index]['type'] == 'image'
                         ? Image.file(
-                            messages[index]['image'],
-                            fit: BoxFit.cover,
-                            height: 200.h,
-                            width: 200.w,
-                          )
+                      messages[index]['image'],
+                      fit: BoxFit.cover,
+                      height: 200.h,
+                      width: 200.w,
+                    )
                         : SizedBox.shrink(),
                   ),
                   CustomText(
                     text: '09:25 AM',
                     fontSize: 10.sp,
                     color: Color(0xFF636F85),
-                    // textAlign: TextAlign.end,
                   ),
                 ],
               ),
@@ -346,11 +277,5 @@ class _InboxMessageScreenState extends State<InboxMessageScreen> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _messageTextController.dispose();
-    super.dispose();
   }
 }

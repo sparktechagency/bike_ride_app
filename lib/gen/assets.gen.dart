@@ -25,6 +25,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/coinIcon.svg
   SvgGenImage get coinIcon => const SvgGenImage('assets/icons/coinIcon.svg');
 
+  /// File path: assets/icons/distanceIcon.svg
+  SvgGenImage get distanceIcon =>
+      const SvgGenImage('assets/icons/distanceIcon.svg');
+
+  /// File path: assets/icons/editProfileIcon.svg
+  SvgGenImage get editProfileIcon =>
+      const SvgGenImage('assets/icons/editProfileIcon.svg');
+
   /// File path: assets/icons/endIcon.svg
   SvgGenImage get endIcon => const SvgGenImage('assets/icons/endIcon.svg');
 
@@ -38,12 +46,20 @@ class $AssetsIconsGen {
   SvgGenImage get inviteMemberIcon =>
       const SvgGenImage('assets/icons/inviteMemberIcon.svg');
 
+  /// File path: assets/icons/locationIcon.svg
+  SvgGenImage get locationIcon =>
+      const SvgGenImage('assets/icons/locationIcon.svg');
+
   /// File path: assets/icons/mediaIcon.svg
   SvgGenImage get mediaIcon => const SvgGenImage('assets/icons/mediaIcon.svg');
 
   /// File path: assets/icons/membersIcon.svg
   SvgGenImage get membersIcon =>
       const SvgGenImage('assets/icons/membersIcon.svg');
+
+  /// File path: assets/icons/myWalletIcon.svg
+  SvgGenImage get myWalletIcon =>
+      const SvgGenImage('assets/icons/myWalletIcon.svg');
 
   /// File path: assets/icons/notificationIcon.svg
   SvgGenImage get notificationIcon =>
@@ -72,6 +88,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ridesIcon.svg
   SvgGenImage get ridesIcon => const SvgGenImage('assets/icons/ridesIcon.svg');
 
+  /// File path: assets/icons/settingsIcon.svg
+  SvgGenImage get settingsIcon =>
+      const SvgGenImage('assets/icons/settingsIcon.svg');
+
   /// File path: assets/icons/splashIcon.svg
   SvgGenImage get splashIcon =>
       const SvgGenImage('assets/icons/splashIcon.svg');
@@ -79,17 +99,25 @@ class $AssetsIconsGen {
   /// File path: assets/icons/startIcon.svg
   SvgGenImage get startIcon => const SvgGenImage('assets/icons/startIcon.svg');
 
+  /// File path: assets/icons/supportIcon.svg
+  SvgGenImage get supportIcon =>
+      const SvgGenImage('assets/icons/supportIcon.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     authLogo,
     calenderIcon,
     coinIcon,
+    distanceIcon,
+    editProfileIcon,
     endIcon,
     groupIcon,
     homeIcon,
     inviteMemberIcon,
+    locationIcon,
     mediaIcon,
     membersIcon,
+    myWalletIcon,
     notificationIcon,
     onBoardingIcon1,
     onBoardingIcon2,
@@ -97,8 +125,10 @@ class $AssetsIconsGen {
     pitStopIcon,
     rideSchedule,
     ridesIcon,
+    settingsIcon,
     splashIcon,
     startIcon,
+    supportIcon,
   ];
 }
 

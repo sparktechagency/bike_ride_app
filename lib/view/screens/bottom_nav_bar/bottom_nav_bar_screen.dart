@@ -1,7 +1,9 @@
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/gen/assets.gen.dart';
+import 'package:bike_ride_app/rides/rides_screen.dart';
 import 'package:bike_ride_app/view/screens/groups/groups_screen.dart';
 import 'package:bike_ride_app/view/screens/home/home_screen.dart';
+import 'package:bike_ride_app/view/screens/rides_schedule/rides_schedule_screen.dart';
 import 'package:bike_ride_app/view/widgets/custom_container.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +30,10 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     HomeScreen(),
     // Center(child: CustomText(text: 'Groups')),
     GroupsScreen(),
-    Center(child: CustomText(text: 'Schedule')),
-    Center(child: CustomText(text: 'Rides')),
+    // Center(child: CustomText(text: 'Schedule')),
+    RidesScheduleScreen(),
+    // Center(child: CustomText(text: 'Rides')),
+    RidesScreen(),
   ];
 
   @override

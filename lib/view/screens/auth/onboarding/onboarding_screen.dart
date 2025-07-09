@@ -40,7 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnBoardingModel(
       title: "Stay Safe & Ride Smart",
       subTitle:
-          "Use credits to schedule rides. In case of emergencies, tap the SOS button to call your saved emergency contact instantly.",
+          "Use credits to schedule rides_schedule. In case of emergencies, tap the SOS button to call your saved emergency contact instantly.",
       image: Assets.icons.onBoardingIcon3.svg(height: 278.h, width: 278.w),
     ),
   ];

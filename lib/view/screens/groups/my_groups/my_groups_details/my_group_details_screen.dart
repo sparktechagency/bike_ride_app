@@ -1,7 +1,6 @@
 import 'package:bike_ride_app/app/routes/app_routes.dart';
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/gen/assets.gen.dart';
-import 'package:bike_ride_app/view/widgets/custom_container.dart';
 import 'package:bike_ride_app/view/widgets/custom_dialog.dart';
 import 'package:bike_ride_app/view/widgets/custom_network_image.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
@@ -12,16 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class GroupDetailsScreen extends StatefulWidget {
-  const GroupDetailsScreen({super.key});
+class MyGroupDetailsScreen extends StatefulWidget {
+  const MyGroupDetailsScreen({super.key});
 
   @override
-  State<GroupDetailsScreen> createState() => _GroupDetailsScreenState();
+  State<MyGroupDetailsScreen> createState() => _MyGroupDetailsScreenState();
 }
 
-class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
-  final fromWhere = Get.arguments ?? '';  // Retrieve the argument passed
-
+class _MyGroupDetailsScreenState extends State<MyGroupDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,14 +74,11 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                     leading: Assets.icons.inviteMemberIcon.svg(),
                     title: 'Invite Member',
                   ),
-                  // Conditionally render the "Join Request" button if the fromWhere is 'myGroup'
-                  if (fromWhere == 'myGroup') ...[
-                    SizedBox(height: 8.h),
-                    ListTileWidget(
-                      leading: Assets.icons.mediaIcon.svg(),
-                      title: 'Join Request',
-                    ),
-                  ],
+                  SizedBox(height: 8.h),
+                  ListTileWidget(
+                    leading: Assets.icons.mediaIcon.svg(),
+                    title: 'Join Request',
+                  ),
                   SizedBox(height: 8.h),
                   ListTileWidget(
                     onTap: () {
@@ -95,13 +89,13 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                   ),
                   SizedBox(height: 130.h),
                   CustomButton(
-                    label: 'Leave Group',
+                    label: 'Delete Group',
                     onPressed: () {
                       customPopUpWidget(
                         context: context,
                         title: "Leave Group",
                         subtitle:
-                        "Are you sure you want to  leave from this group?",
+                            "Are you sure you want to  leave from this group?",
                         firstButton: 'Cancel',
                         lastButton: 'Leave',
                       );

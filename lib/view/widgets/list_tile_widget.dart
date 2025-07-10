@@ -14,6 +14,11 @@ class ListTileWidget extends StatelessWidget {
     this.titleColor,
     this.bgColor,
     this.onTap,
+    this.subtitle,
+    this.subtitleColor,
+    this.subTitleSize,
+    this.titleWeight,
+    this.titleSize,
   });
 
   final Widget? leading;
@@ -23,6 +28,11 @@ class ListTileWidget extends StatelessWidget {
   final Color? titleColor;
   final Color? bgColor;
   final Function()? onTap;
+  final String? subtitle;
+  final Color? subtitleColor;
+  final double? subTitleSize;
+  final FontWeight? titleWeight;
+  final double? titleSize;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +52,29 @@ class ListTileWidget extends StatelessWidget {
                 // Assets.icons.membersIcon.svg(),
                 leading!,
                 SizedBox(width: 16.w),
-                CustomText(text: title!, color: titleColor),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(
+                      text: title!,
+                      color: titleColor,
+                      textAlign: TextAlign.start,
+                      fontSize: titleSize,
+                      fontWeight: titleWeight ?? FontWeight.w400,
+                    ),
+                    subtitle != null
+                        ? CustomText(
+                            text: subtitle ?? '',
+                            color: subtitleColor,
+                            fontSize: subTitleSize ?? 12.sp,
+                          )
+                        : SizedBox.shrink(),
+                  ],
+                ),
               ],
             ),
-            suffix ?? Icon(Icons.arrow_right, size: 30.h,color: titleColor,),
+            suffix ?? Icon(Icons.arrow_right, size: 30.h, color: titleColor),
           ],
         ),
       ),

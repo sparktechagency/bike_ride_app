@@ -39,7 +39,7 @@ class CustomButton extends StatelessWidget {
           width: width ?? double.infinity,
           decoration: BoxDecoration(
             color: backgroundColor ?? AppColors.primaryColor,
-            borderRadius: BorderRadius.circular(borderRadius??12),
+            borderRadius: BorderRadius.circular(borderRadius??12.r),
             // boxShadow: [
             //   BoxShadow(
             //     color: Colors.black.withOpacity(0.3),
@@ -54,7 +54,7 @@ class CustomButton extends StatelessWidget {
         Positioned.fill(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius??12),
+              borderRadius: BorderRadius.circular(borderRadius??12.r),
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -72,7 +72,7 @@ class CustomButton extends StatelessWidget {
               padding: EdgeInsets.all(0),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius??12),
+                borderRadius: BorderRadius.circular(borderRadius??12.r),
               ),
             ),
             onPressed: onPressed,

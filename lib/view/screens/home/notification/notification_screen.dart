@@ -1,8 +1,10 @@
+import 'package:bike_ride_app/app/routes/app_routes.dart';
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/gen/assets.gen.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -26,6 +28,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
         itemCount: 10,
         itemBuilder: (context, index) {
           return ListTile(
+            onTap: () {
+              Get.toNamed(AppRoutes.groupRequestScreen);
+            },
             leading: Assets.icons.notificationIcon.svg(),
             title: CustomText(
               text: 'Group Invitation',

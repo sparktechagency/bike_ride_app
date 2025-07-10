@@ -29,6 +29,7 @@ class CustomTextField extends StatefulWidget {
   final VoidCallback? onTap;
   final ValueChanged<String>? onChanged;
   final TextInputAction? textInputAction;
+  final bool? filled;
 
   const CustomTextField({
     super.key,
@@ -55,6 +56,7 @@ class CustomTextField extends StatefulWidget {
     this.borderRadio,
     this.onTap,
     this.onChanged,
+    this.filled
   });
 
   @override
@@ -155,6 +157,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               fontWeight: FontWeight.w400,
               fontFamily: FontFamily.montserrat,
             ),
+            fillColor: widget.filColor,
+            filled:widget.filled ,
             focusedBorder: _focusedBorder(),
             enabledBorder: _enabledBorder(),
             errorBorder: _errorBorder(),

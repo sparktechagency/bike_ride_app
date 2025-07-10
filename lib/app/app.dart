@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
             title: 'Bike Ride',
             debugShowCheckedModeBanner: false,
             // home: SplashScreen(),
-            initialRoute: AppRoutes.splashScreen,
+            initialRoute: AppRoutes.bottomNavBarScreen,
             getPages: AppRoutes.routes,
             // themeMode: ThemeMode.light,
             // theme: ThemeData.dark(useMaterial3: true),

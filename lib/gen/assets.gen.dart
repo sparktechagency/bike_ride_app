@@ -15,12 +15,23 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/aboutIcon.svg
+  SvgGenImage get aboutIcon => const SvgGenImage('assets/icons/aboutIcon.svg');
+
+  /// File path: assets/icons/addCreditsIcon.svg
+  SvgGenImage get addCreditsIcon =>
+      const SvgGenImage('assets/icons/addCreditsIcon.svg');
+
   /// File path: assets/icons/authLogo.svg
   SvgGenImage get authLogo => const SvgGenImage('assets/icons/authLogo.svg');
 
   /// File path: assets/icons/calenderIcon.svg
   SvgGenImage get calenderIcon =>
       const SvgGenImage('assets/icons/calenderIcon.svg');
+
+  /// File path: assets/icons/changePasswordIcon.svg
+  SvgGenImage get changePasswordIcon =>
+      const SvgGenImage('assets/icons/changePasswordIcon.svg');
 
   /// File path: assets/icons/coinIcon.svg
   SvgGenImage get coinIcon => const SvgGenImage('assets/icons/coinIcon.svg');
@@ -49,6 +60,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/locationIcon.svg
   SvgGenImage get locationIcon =>
       const SvgGenImage('assets/icons/locationIcon.svg');
+
+  /// File path: assets/icons/logoutIcon.svg
+  SvgGenImage get logoutIcon =>
+      const SvgGenImage('assets/icons/logoutIcon.svg');
 
   /// File path: assets/icons/mediaIcon.svg
   SvgGenImage get mediaIcon => const SvgGenImage('assets/icons/mediaIcon.svg');
@@ -81,6 +96,9 @@ class $AssetsIconsGen {
   SvgGenImage get pitStopIcon =>
       const SvgGenImage('assets/icons/pitStopIcon.svg');
 
+  /// File path: assets/icons/policy.svg
+  SvgGenImage get policy => const SvgGenImage('assets/icons/policy.svg');
+
   /// File path: assets/icons/rideSchedule.svg
   SvgGenImage get rideSchedule =>
       const SvgGenImage('assets/icons/rideSchedule.svg');
@@ -92,6 +110,10 @@ class $AssetsIconsGen {
   SvgGenImage get settingsIcon =>
       const SvgGenImage('assets/icons/settingsIcon.svg');
 
+  /// File path: assets/icons/spendCreditsIcon.svg
+  SvgGenImage get spendCreditsIcon =>
+      const SvgGenImage('assets/icons/spendCreditsIcon.svg');
+
   /// File path: assets/icons/splashIcon.svg
   SvgGenImage get splashIcon =>
       const SvgGenImage('assets/icons/splashIcon.svg');
@@ -99,14 +121,28 @@ class $AssetsIconsGen {
   /// File path: assets/icons/startIcon.svg
   SvgGenImage get startIcon => const SvgGenImage('assets/icons/startIcon.svg');
 
+  /// File path: assets/icons/supportEmailIcon.svg
+  SvgGenImage get supportEmailIcon =>
+      const SvgGenImage('assets/icons/supportEmailIcon.svg');
+
   /// File path: assets/icons/supportIcon.svg
   SvgGenImage get supportIcon =>
       const SvgGenImage('assets/icons/supportIcon.svg');
 
+  /// File path: assets/icons/supportPhoneIcon.svg
+  SvgGenImage get supportPhoneIcon =>
+      const SvgGenImage('assets/icons/supportPhoneIcon.svg');
+
+  /// File path: assets/icons/termsIcon.svg
+  SvgGenImage get termsIcon => const SvgGenImage('assets/icons/termsIcon.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
+    aboutIcon,
+    addCreditsIcon,
     authLogo,
     calenderIcon,
+    changePasswordIcon,
     coinIcon,
     distanceIcon,
     editProfileIcon,
@@ -115,6 +151,7 @@ class $AssetsIconsGen {
     homeIcon,
     inviteMemberIcon,
     locationIcon,
+    logoutIcon,
     mediaIcon,
     membersIcon,
     myWalletIcon,
@@ -123,17 +160,26 @@ class $AssetsIconsGen {
     onBoardingIcon2,
     onBoardingIcon3,
     pitStopIcon,
+    policy,
     rideSchedule,
     ridesIcon,
     settingsIcon,
+    spendCreditsIcon,
     splashIcon,
     startIcon,
+    supportEmailIcon,
     supportIcon,
+    supportPhoneIcon,
+    termsIcon,
   ];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/changePasswordScreen.png
+  AssetGenImage get changePasswordScreen =>
+      const AssetGenImage('assets/images/changePasswordScreen.png');
 
   /// File path: assets/images/confirmImage.svg
   SvgGenImage get confirmImage =>
@@ -143,8 +189,22 @@ class $AssetsImagesGen {
   SvgGenImage get creditsCard =>
       const SvgGenImage('assets/images/creditsCard.svg');
 
+  /// File path: assets/images/supportImage.png
+  AssetGenImage get supportImage =>
+      const AssetGenImage('assets/images/supportImage.png');
+
+  /// File path: assets/images/walletImage.png
+  AssetGenImage get walletImage =>
+      const AssetGenImage('assets/images/walletImage.png');
+
   /// List of all assets
-  List<SvgGenImage> get values => [confirmImage, creditsCard];
+  List<dynamic> get values => [
+    changePasswordScreen,
+    confirmImage,
+    creditsCard,
+    supportImage,
+    walletImage,
+  ];
 }
 
 class Assets {
@@ -152,6 +212,76 @@ class Assets {
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+}
+
+class AssetGenImage {
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
+
+  final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
+
+  Image image({
+    Key? key,
+    AssetBundle? bundle,
+    ImageFrameBuilder? frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    String? semanticLabel,
+    bool excludeFromSemantics = false,
+    double? scale,
+    double? width,
+    double? height,
+    Color? color,
+    Animation<double>? opacity,
+    BlendMode? colorBlendMode,
+    BoxFit? fit,
+    AlignmentGeometry alignment = Alignment.center,
+    ImageRepeat repeat = ImageRepeat.noRepeat,
+    Rect? centerSlice,
+    bool matchTextDirection = false,
+    bool gaplessPlayback = true,
+    bool isAntiAlias = false,
+    String? package,
+    FilterQuality filterQuality = FilterQuality.medium,
+    int? cacheWidth,
+    int? cacheHeight,
+  }) {
+    return Image.asset(
+      _assetName,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      semanticLabel: semanticLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      scale: scale,
+      width: width,
+      height: height,
+      color: color,
+      opacity: opacity,
+      colorBlendMode: colorBlendMode,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+      centerSlice: centerSlice,
+      matchTextDirection: matchTextDirection,
+      gaplessPlayback: gaplessPlayback,
+      isAntiAlias: isAntiAlias,
+      package: package,
+      filterQuality: filterQuality,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
+    );
+  }
+
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
 }
 
 class SvgGenImage {

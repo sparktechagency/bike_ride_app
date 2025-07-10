@@ -2,13 +2,18 @@ import 'dart:io';
 
 import 'package:bike_ride_app/app/helpers/image_picker_helper.dart';
 import 'package:bike_ride_app/app/utils/app_color.dart';
+import 'package:bike_ride_app/gen/fonts.gen.dart';
 import 'package:bike_ride_app/view/widgets/custom_bottom_sheet.dart';
 import 'package:bike_ride_app/view/widgets/custom_container.dart';
+import 'package:bike_ride_app/view/widgets/custom_network_image.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
 import 'package:bike_ride_app/view/widgets/custom_text_field.dart';
+import 'package:bike_ride_app/view/widgets/dummy_widget.dart';
+import 'package:bike_ride_app/view/widgets/phone_number_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -49,7 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: CustomText(
-          text: "Profile",
+          text: "Setup Profile",
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,
         ),
@@ -57,27 +62,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(24.r),
-          child: Center(
-            child: Column(
-              children: [
-                _addProfileImage(),
-                CustomTextField(
-                  controller: _nameTEController,
-                  hintText: 'Rakibul Hasan Khan',
-                  labelText: 'Full Name',
+          child: Column(
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    _addProfileImage(),
+                    SizedBox(height: 10.h),
+                    CustomText(text: 'Change profile picture', fontSize: 16.sp),
+                  ],
                 ),
-                CustomTextField(
-                  controller: _nameTEController,
-                  hintText: '2452345643',
-                  labelText: 'Mobile Number',
-                ),
-                CustomTextField(
-                  controller: _nameTEController,
-                  hintText: '4523453453',
-                  labelText: 'Emergency Contact Number',
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: 20.h),
+              CustomTextField(
+                controller: _nameTEController,
+                hintText: 'Rakibul Hasan Khan',
+                labelText: 'Full Name',
+              ),
+              SizedBox(height: 14.h),
+              // CustomTextField(
+              //   controller: _nameTEController,
+              //   hintText: '2452345643',
+              //   labelText: 'Mobile Number',
+              // ),
+              PhoneNumberTextField(
+                numberTEController: _numberTEController,
+                title: 'Mobile Number',
+              ),
+              SizedBox(height: 14.h),
+              PhoneNumberTextField(
+                numberTEController: _numberTEController,
+                title: 'Emergency Contact Number',
+              ),
+              // CustomTextField(
+              //   controller: _nameTEController,
+              //   hintText: '4523453453',
+              //   labelText: 'Emergency Contact Number',
+              // ),
+              SizedBox(height: 166.h),
+              CustomButton(label: 'Update', onPressed: () {}),
+            ],
           ),
         ),
       ),
@@ -93,20 +117,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           width: 120.w,
           shape: BoxShape.circle,
           child: _profileImage == null
-              ? CustomContainer(
-                  // alignment: Alignment.bottomCenter,
-                  height: 88.h,
-                  width: 88.w,
-                  shape: BoxShape.circle,
-                  color: Color(0xFFCDCED2),
-                  child: Icon(Icons.person, color: Colors.white, size: 100.h),
+              // ? CustomContainer(
+              //     // alignment: Alignment.bottomCenter,
+              //     height: 88.h,
+              //     width: 88.w,
+              //     shape: BoxShape.circle,
+              //     color: Color(0xFFCDCED2),
+              //     child: Icon(Icons.person, color: Colors.white, size: 100.h),
+              //   )
+              ? CustomNetworkImage(
+                  imageUrl: "https://i.pravatar.cc/150?img=33",
+                  height: 120.h,
+                  width: 120.w,
+                  borderRadius: BorderRadius.circular(1000.r),
+                  border: Border.all(color: AppColors.primaryColor),
                 )
-              //     ? CustomNetworkImage(
-              //   imageUrl: "https://i.pravatar.cc/150?img=33",
-              //   height: 120.h,
-              //   width: 120.w,
-              //   borderRadius: BorderRadius.circular(1000.r),
-              // )
               : ClipOval(child: Image.file(_profileImage!, fit: BoxFit.cover)),
         ),
         GestureDetector(

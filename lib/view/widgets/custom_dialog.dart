@@ -40,6 +40,7 @@ Future<bool?> customPopUpWidget({
               text: subtitle,
               fontSize: 16.sp,
               textAlign: TextAlign.start,
+              color: AppColors.grey400,
             ),
             SizedBox(height: 30.h,),
             Row(

@@ -1,3 +1,4 @@
+import 'package:bike_ride_app/app/routes/app_routes.dart';
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/gen/assets.gen.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
@@ -6,6 +7,7 @@ import 'package:bike_ride_app/view/widgets/dummy_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CreateRidesScreen extends StatefulWidget {
   const CreateRidesScreen({super.key});
@@ -55,7 +57,7 @@ class _CreateRidesScreenState extends State<CreateRidesScreen> {
               CustomTextField(
                 controller: _startLocationTEController,
                 hintText: 'Select Group',
-                suffixIcon:Icon(CupertinoIcons.location_solid),
+                suffixIcon: Icon(CupertinoIcons.location_solid),
                 labelText: "Start Location",
               ),
               SizedBox(height: 16.h),
@@ -63,7 +65,7 @@ class _CreateRidesScreenState extends State<CreateRidesScreen> {
                 controller: _endLocationTEController,
                 hintText: 'End Location',
                 labelText: "End Location",
-                suffixIcon:Icon(CupertinoIcons.location_solid),
+                suffixIcon: Icon(CupertinoIcons.location_solid),
               ),
               SizedBox(height: 16.h),
               CustomTextField(
@@ -79,7 +81,9 @@ class _CreateRidesScreenState extends State<CreateRidesScreen> {
                 height: 44.h,
                 width: 166.w,
                 fontSize: 14.sp,
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoutes.googleMapScreen);
+                },
                 prefix: Icon(
                   Icons.add,
                   color: AppColors.secondaryColor,
@@ -89,7 +93,11 @@ class _CreateRidesScreenState extends State<CreateRidesScreen> {
               SizedBox(height: 40.h),
               CustomText(text: '💰 Cost: Just 1 credits per ride'),
               SizedBox(height: 24.h),
-              CustomButton(label: 'Create Ride', onPressed: () {}),
+              CustomButton(
+                label: 'Create Ride',
+                onPressed: () {
+                },
+              ),
             ],
           ),
         ),

@@ -1,9 +1,10 @@
 import 'package:bike_ride_app/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
-void main(){
+void main() async{
   // SystemChrome.setSystemUIOverlayStyle(
   //   const SystemUiOverlayStyle(
   //     statusBarColor: Colors.transparent,
@@ -11,6 +12,7 @@ void main(){
   //     statusBarBrightness: Brightness.dark,      // For iOS (dark icons)
   //   ),
   // );
+  // await dotenv.load();
   runApp(MyApp());
 }
 

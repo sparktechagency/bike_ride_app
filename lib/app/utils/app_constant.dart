@@ -16,6 +16,7 @@ class AppConstants{
   static String lastSavedDate = 'lastSavedDate';
   static const String dayCompleted = 'day_completed';
   static const String userActive = 'userActive';
+  static const String googleApiKey = 'userActive';
 
   static RegExp emailValidate = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");

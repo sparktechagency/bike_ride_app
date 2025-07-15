@@ -36,6 +36,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/coinIcon.svg
   SvgGenImage get coinIcon => const SvgGenImage('assets/icons/coinIcon.svg');
 
+  /// File path: assets/icons/destinationIcon.svg
+  SvgGenImage get destinationIcon =>
+      const SvgGenImage('assets/icons/destinationIcon.svg');
+
   /// File path: assets/icons/distanceIcon.svg
   SvgGenImage get distanceIcon =>
       const SvgGenImage('assets/icons/distanceIcon.svg');
@@ -96,12 +100,23 @@ class $AssetsIconsGen {
   SvgGenImage get pitStopIcon =>
       const SvgGenImage('assets/icons/pitStopIcon.svg');
 
+  /// File path: assets/icons/pitStopMap.svg
+  SvgGenImage get pitStopMap =>
+      const SvgGenImage('assets/icons/pitStopMap.svg');
+
+  /// File path: assets/icons/pitstop.png
+  AssetGenImage get pitstop => const AssetGenImage('assets/icons/pitstop.png');
+
   /// File path: assets/icons/policy.svg
   SvgGenImage get policy => const SvgGenImage('assets/icons/policy.svg');
 
   /// File path: assets/icons/rideSchedule.svg
   SvgGenImage get rideSchedule =>
       const SvgGenImage('assets/icons/rideSchedule.svg');
+
+  /// File path: assets/icons/rideStartIcon.svg
+  SvgGenImage get rideStartIcon =>
+      const SvgGenImage('assets/icons/rideStartIcon.svg');
 
   /// File path: assets/icons/ridesIcon.svg
   SvgGenImage get ridesIcon => const SvgGenImage('assets/icons/ridesIcon.svg');
@@ -137,13 +152,14 @@ class $AssetsIconsGen {
   SvgGenImage get termsIcon => const SvgGenImage('assets/icons/termsIcon.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
     aboutIcon,
     addCreditsIcon,
     authLogo,
     calenderIcon,
     changePasswordIcon,
     coinIcon,
+    destinationIcon,
     distanceIcon,
     editProfileIcon,
     endIcon,
@@ -160,8 +176,11 @@ class $AssetsIconsGen {
     onBoardingIcon2,
     onBoardingIcon3,
     pitStopIcon,
+    pitStopMap,
+    pitstop,
     policy,
     rideSchedule,
+    rideStartIcon,
     ridesIcon,
     settingsIcon,
     spendCreditsIcon,
@@ -189,6 +208,18 @@ class $AssetsImagesGen {
   SvgGenImage get creditsCard =>
       const SvgGenImage('assets/images/creditsCard.svg');
 
+  /// File path: assets/images/endRideIcon.png
+  AssetGenImage get endRideIcon =>
+      const AssetGenImage('assets/images/endRideIcon.png');
+
+  /// File path: assets/images/mapPeopleIcon.png
+  AssetGenImage get mapPeopleIcon =>
+      const AssetGenImage('assets/images/mapPeopleIcon.png');
+
+  /// File path: assets/images/startRideIcon.png
+  AssetGenImage get startRideIcon =>
+      const AssetGenImage('assets/images/startRideIcon.png');
+
   /// File path: assets/images/supportImage.png
   AssetGenImage get supportImage =>
       const AssetGenImage('assets/images/supportImage.png');
@@ -202,6 +233,9 @@ class $AssetsImagesGen {
     changePasswordScreen,
     confirmImage,
     creditsCard,
+    endRideIcon,
+    mapPeopleIcon,
+    startRideIcon,
     supportImage,
     walletImage,
   ];

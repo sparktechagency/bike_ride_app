@@ -1,10 +1,18 @@
 import 'dart:async';
+import 'package:bike_ride_app/app/utils/app_color.dart';
+import 'package:bike_ride_app/app/utils/app_constant.dart';
+import 'package:bike_ride_app/gen/assets.gen.dart';
+import 'package:bike_ride_app/view/screens/google_maps/widget/create_marker_from_icon.dart';
+import 'package:bike_ride_app/view/widgets/custom_container.dart';
+import 'package:bike_ride_app/view/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:location/location.dart';
 
 class GoogleMapsScreen extends StatefulWidget {
   const GoogleMapsScreen({super.key});
@@ -14,89 +22,149 @@ class GoogleMapsScreen extends StatefulWidget {
 }
 
 class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
-  Position? _currentPosition;
   GoogleMapController? _controller;
-  final String mapApiKey = dotenv.env['GOOGLE_MAP_API_KEY'] ?? "";
-
-  Set<Marker> _currentLocationMarker = {};
+  Set<Marker> _markers = {};
   Set<Polyline> _polylines = {};
-  final List<LatLng> _polylineCoordinates = [];
-  static const LatLng sourceLocation = LatLng(
-    23.775390633135665,
-    90.38995325184555,
+  final PolylinePoints _polylinePoints = PolylinePoints();
+
+  static const LatLng _origin = LatLng(23.775390633135665, 90.38995325184555);
+  static const LatLng _destination = LatLng(
+    23.760090994557295,
+    90.3943580114465,
   );
-  static const LatLng destination = LatLng(
-    23.778321365906365,
-    90.39758681868639,
+  static const LatLng _currentLocation = LatLng(
+    23.759881920301577,
+    90.38941581725936,
   );
+  static const LatLng _pitStop = LatLng(23.76333789500554, 90.38913367193292);
+  LocationData? currentLocation;
+  BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor peopleLocationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor pitStopIcon = BitmapDescriptor.defaultMarker;
 
   @override
   void initState() {
     super.initState();
-    _listenCurrentLocation();
-    getPolyPoints();
+    setCustomMarkerIcon(); // Set custom icons
+    _getCurrentLocation();
+    _getPolyline();
   }
 
-  Future<void> getPolyPoints() async {
-    PolylinePoints polylinePoints = PolylinePoints();
-
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      request: PolylineRequest(
-        origin: PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-        destination: PointLatLng(destination.latitude, destination.longitude),
-        mode: TravelMode.driving,
-      ),
-      googleApiKey: mapApiKey,
+  // Function to load custom marker icons
+  void setCustomMarkerIcon() async {
+    // Load custom icons asynchronously
+    sourceIcon = await createMarkerFromIcon(
+      Icon(Icons.flag),
+      color: Colors.red,
+    );
+    peopleLocationIcon = await createMarkerFromIcon(
+      Icon(Icons.person, color: Colors.red),
+      color: AppColors.errorColor,
+      // fontSize: 40.sp,
+    );
+    destinationIcon = await createMarkerFromIcon(
+      Icon(Icons.flag),
+      color: Colors.green
+    );
+    pitStopIcon = await createMarkerFromIcon(
+      Icon(Icons.local_parking),
     );
 
-    if (result.points.isNotEmpty) {
-      for (var point in result.points) {
-        _polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      }
-      setState(() {});
-    } else {
-      print("No polyline points found.");
-    }
+    setState(() {
+      _addMarkers();
+    });
   }
 
-  Future<void> _listenCurrentLocation() async {
-    if (await _checkPermissionStatus()) {
-      if (await _isGpsServiceEnable()) {
-        Geolocator.getPositionStream(
-          locationSettings: const LocationSettings(
-            accuracy: LocationAccuracy.best,
-            timeLimit: Duration(seconds: 10),
+  void _getCurrentLocation() {
+    Location location = Location();
+    location.getLocation().then((location) {
+      currentLocation = location;
+    });
+  }
+
+  // Add markers on the map
+  void _addMarkers() {
+    setState(() {
+      _markers.add(
+        Marker(
+          markerId: const MarkerId("origin"),
+          position: _origin,
+          infoWindow: const InfoWindow(title: "Start Ride"),
+          // icon: sourceIcon,
+        ),
+      );
+      _markers.add(
+        Marker(
+          markerId: const MarkerId("pitStop"),
+          position: _pitStop,
+          infoWindow: const InfoWindow(title: "Pit Stop"),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            BitmapDescriptor.hueOrange,
           ),
-        ).listen((pos) {
-          print(pos);
-        });
-        setState(() {});
+        ),
+      );
+      _markers.add(
+        Marker(
+          markerId: const MarkerId("currentLocation"),
+          position: _currentLocation,
+          infoWindow: const InfoWindow(title: "My Location"),
+          icon: peopleLocationIcon,
+        ),
+      );
+      _markers.add(
+        Marker(
+          markerId: const MarkerId("destination"),
+          position: _destination,
+          infoWindow: const InfoWindow(title: "Destination"),
+          // icon: destinationIcon,
+        ),
+      );
+    });
+  }
+
+  // Fetch polyline data for the route
+  Future<void> _getPolyline() async {
+    debugPrint("🚀 Fetching polyline...");
+
+    final url = Uri.parse(
+      'https://maps.googleapis.com/maps/api/directions/json?'
+      'origin=${_origin.latitude},${_origin.longitude}&'
+      'destination=${_destination.latitude},${_destination.longitude}&'
+      'key=${AppConstants.googleApiKey}',
+    );
+
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['routes'].isNotEmpty) {
+          final encodedPolyline =
+              data['routes'][0]['overview_polyline']['points'];
+          final points = _polylinePoints.decodePolyline(encodedPolyline);
+
+          setState(() {
+            _polylines = {
+              Polyline(
+                polylineId: const PolylineId("route"),
+                color: Colors.blue,
+                points: points
+                    .map((p) => LatLng(p.latitude, p.longitude))
+                    .toList(),
+                width: 5,
+              ),
+            };
+          });
+          debugPrint("✅ Polyline drawn with ${points.length} points");
+        } else {
+          debugPrint("❌ No routes found in API response");
+        }
       } else {
-        _requestGpsService();
+        debugPrint("❌ API Error: ${response.statusCode}");
       }
-    } else {
-      _requestPermission();
+    } catch (e) {
+      debugPrint("🔥 Exception: $e");
     }
-  }
-
-  Future<bool> _checkPermissionStatus() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    return permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse;
-  }
-
-  Future<bool> _requestPermission() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    return permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse;
-  }
-
-  Future<bool> _isGpsServiceEnable() async {
-    return await Geolocator.isLocationServiceEnabled();
-  }
-
-  Future<void> _requestGpsService() async {
-    await Geolocator.openLocationSettings();
   }
 
   @override
@@ -111,25 +179,30 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
       ),
       body: GoogleMap(
         initialCameraPosition: const CameraPosition(
-          target: sourceLocation,
+          target: _currentLocation,
           zoom: 14.5,
         ),
         myLocationEnabled: true,
-        onMapCreated: (GoogleMapController controller) {
-          _controller = controller;
-        },
-        markers: {
-          Marker(markerId: MarkerId("source"), position: sourceLocation),
-          Marker(markerId: MarkerId("destination"), position: destination),
-        },
-        polylines: {
-          Polyline(
-            polylineId: PolylineId("route"),
-            points: _polylineCoordinates,
-            color: Colors.blue,
-            width: 5,
-          ),
-        },
+        onMapCreated: (controller) => _controller = controller,
+        markers: _markers,
+        polylines: _polylines,
+        // trafficEnabled: true,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: CustomContainer(
+        alignment: Alignment.center,
+        height: 75.h,
+        width: 75.w,
+        shape: BoxShape.circle,
+        bordersColor: AppColors.errorColor.withOpacity(.5),
+        color: AppColors.errorColor,
+        borderWidth: 5.w,
+        child: CustomText(
+          text: 'SOS',
+          fontWeight: FontWeight.bold,
+          fontSize: 18.sp,
+          color: Colors.white,
+        ),
       ),
     );
   }

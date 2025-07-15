@@ -51,13 +51,19 @@ class _CreateRidesScreenState extends State<CreateRidesScreen> {
                 controller: _selectTEController,
                 hintText: 'Select Group ',
                 labelText: "Select Group",
+                readOnly: true,
                 suffixIcon: Icon(Icons.arrow_drop_down_outlined, size: 25.h),
               ),
               SizedBox(height: 16.h),
               CustomTextField(
                 controller: _startLocationTEController,
-                hintText: 'Select Group',
-                suffixIcon: Icon(CupertinoIcons.location_solid),
+                hintText: 'Start Location',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.googleMapSearchScreen);
+                  },
+                  icon: Icon(CupertinoIcons.location_solid),
+                ),
                 labelText: "Start Location",
               ),
               SizedBox(height: 16.h),
@@ -65,7 +71,12 @@ class _CreateRidesScreenState extends State<CreateRidesScreen> {
                 controller: _endLocationTEController,
                 hintText: 'End Location',
                 labelText: "End Location",
-                suffixIcon: Icon(CupertinoIcons.location_solid),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.googleMapSearchScreen);
+                  },
+                  icon: Icon(CupertinoIcons.location_solid),
+                ),
               ),
               SizedBox(height: 16.h),
               CustomTextField(
@@ -93,11 +104,7 @@ class _CreateRidesScreenState extends State<CreateRidesScreen> {
               SizedBox(height: 40.h),
               CustomText(text: '💰 Cost: Just 1 credits per ride'),
               SizedBox(height: 24.h),
-              CustomButton(
-                label: 'Create Ride',
-                onPressed: () {
-                },
-              ),
+              CustomButton(label: 'Create Ride', onPressed: () {}),
             ],
           ),
         ),

@@ -10,6 +10,7 @@ import 'package:bike_ride_app/view/screens/auth/sign_up/sign_up_screen.dart';
 import 'package:bike_ride_app/view/screens/auth/splash_screen/splash_screen.dart';
 import 'package:bike_ride_app/view/screens/bottom_nav_bar/bottom_nav_bar_screen.dart';
 import 'package:bike_ride_app/view/screens/google_maps/google_maps_screen.dart';
+import 'package:bike_ride_app/view/screens/google_maps/google_maps_search/google_maps_search_screen.dart';
 import 'package:bike_ride_app/view/screens/groups/create_group/create_group_screen.dart';
 import 'package:bike_ride_app/view/screens/groups/group_details/all_member/all_member_screen.dart';
 import 'package:bike_ride_app/view/screens/groups/group_details/group_details_screen.dart';
@@ -71,6 +72,7 @@ class AppRoutes {
   static const String supportScreen = '/supportScreen';
   static const String groupRequestScreen = '/groupRequestScreen';
   static const String googleMapScreen = '/googleMapScreen';
+  static const String googleMapSearchScreen = '/googleMapSearchScreen';
 
   // static const String exploreScreen = '/exploreScreen';
   // static const String peopleByLocationScreen = '/peopleByLocationScreen';
@@ -118,5 +120,6 @@ class AppRoutes {
     GetPage(name: supportScreen, page: () => SupportScreen()),
     GetPage(name: groupRequestScreen, page: () => GroupRequestScreen()),
     GetPage(name: googleMapScreen, page: () => GoogleMapsScreen()),
+    GetPage(name: googleMapSearchScreen, page: () => GoogleMapsSearchScreen()),
   ];
 }

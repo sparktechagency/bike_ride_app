@@ -14,7 +14,8 @@ class TextFieldWidget extends StatelessWidget {
     this.hintFontSize,
     this.keyboardType,
     this.filledColor,
-    this.borderColor
+    this.borderColor,
+    this.onChange
   });
 
   final String hintText;
@@ -27,6 +28,7 @@ class TextFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final Color? filledColor;
   final Color? borderColor;
+  final Function(String)? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class TextFieldWidget extends StatelessWidget {
       keyboardType: keyboardType,
       minLines: 1,
       maxLines: maxLine,
+      onChanged: onChange,
       style: TextStyle(
         color: Colors.black,
         fontSize: 16.sp,

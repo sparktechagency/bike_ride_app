@@ -6,6 +6,7 @@ import 'package:bike_ride_app/view/widgets/custom_network_image.dart';
 import 'package:bike_ride_app/view/widgets/custom_text.dart';
 import 'package:bike_ride_app/view/widgets/dummy_widget.dart';
 import 'package:bike_ride_app/view/widgets/ride_details_widget.dart';
+import 'package:bike_ride_app/view/widgets/show_buy_credits_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _amountTEController = TextEditingController();
   final List<String> rideTitle = [
     "Sunset Coastal Cruise",
     "Beachside Bikers",
@@ -70,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: AppColors.secondaryColor,
                           ),
                           label: 'Create New Ride',
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(AppRoutes.createRideScreen);
+                          },
                           width: 314.w,
                         ),
                       ),
@@ -116,7 +120,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           CustomButton(
                                             label: "Track",
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Get.toNamed(
+                                                AppRoutes.googleMapScreen,
+                                              );
+                                            },
                                             height: 36.h,
                                             width: 150.w,
                                           ),
@@ -235,7 +243,12 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 CustomButton(
                   label: "Buy More Credits",
-                  onPressed: () {},
+                  onPressed: () {
+                    showBuyCreditsDialog(
+                      context: context,
+                      amountTEController: _amountTEController,
+                    );
+                  },
                   height: 36.h,
                   width: 214.w,
                   fontSize: 16.sp,

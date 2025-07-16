@@ -15,7 +15,9 @@ class TextFieldWidget extends StatelessWidget {
     this.keyboardType,
     this.filledColor,
     this.borderColor,
-    this.onChange
+    this.onChange,
+    this.onTap,
+    this.readOnly,
   });
 
   final String hintText;
@@ -29,11 +31,15 @@ class TextFieldWidget extends StatelessWidget {
   final Color? filledColor;
   final Color? borderColor;
   final Function(String)? onChange;
+  final Function()? onTap;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      onTap: onTap,
+      readOnly: readOnly ?? false,
       textInputAction: textInputAction,
       cursorColor: AppColors.primaryColor,
       keyboardType: keyboardType,
@@ -57,18 +63,18 @@ class TextFieldWidget extends StatelessWidget {
           fontSize: hintFontSize,
         ),
         filled: true,
-        fillColor: filledColor??AppColors.filledColor,
+        fillColor: filledColor ?? AppColors.filledColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(36.r),
-          borderSide: BorderSide(color:borderColor?? AppColors.borderColor),
+          borderSide: BorderSide(color: borderColor ?? AppColors.borderColor),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(36.r),
-          borderSide: BorderSide(color:borderColor?? AppColors.borderColor),
+          borderSide: BorderSide(color: borderColor ?? AppColors.borderColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(36.r),
-          borderSide: BorderSide(color:borderColor?? AppColors.borderColor),
+          borderSide: BorderSide(color: borderColor ?? AppColors.borderColor),
         ),
       ),
     );

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui';
 import 'package:bike_ride_app/app/utils/app_color.dart';
 import 'package:bike_ride_app/app/utils/app_constant.dart';
 import 'package:bike_ride_app/gen/assets.gen.dart';
@@ -11,7 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:image/image.dart' as img;
 import 'package:location/location.dart';
 
 class GoogleMapsScreen extends StatefulWidget {
@@ -23,7 +25,7 @@ class GoogleMapsScreen extends StatefulWidget {
 
 class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
   GoogleMapController? _controller;
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
   Set<Polyline> _polylines = {};
   final PolylinePoints _polylinePoints = PolylinePoints();
 
@@ -51,6 +53,65 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
     _getPolyline();
   }
 
+  // Function to download the image from URL, make it circular, and convert to BitmapDescriptor
+  Future<BitmapDescriptor> _getMarkerIcon(String imageUrl) async {
+    final response = await http.get(Uri.parse(imageUrl));
+
+    if (response.statusCode == 200) {
+      final bytes = response.bodyBytes;
+      final image = img.decodeImage(Uint8List.fromList(bytes));
+
+      if (image != null) {
+        // Resize and crop the image to make it circular
+        final size = 80; // Set the desired size for the marker
+        final circle = _createCircularImage(image, size);
+
+        // Convert the circular image back to bytes
+        final circularBytes = Uint8List.fromList(img.encodePng(circle));
+
+        return BitmapDescriptor.fromBytes(circularBytes);
+      } else {
+        throw Exception('Failed to decode image');
+      }
+    } else {
+      throw Exception('Failed to load image');
+    }
+  }
+
+  img.Image _createCircularImage(img.Image image, int size) {
+    // Create a new image with transparency support
+    final circle = img.Image(width: size, height: size, numChannels: 4);
+    final radius = size / 2;
+    final center = radius - 0.5; // Adjust for better centering
+
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
+        // Calculate distance from the center
+        final dx = x - center;
+        final dy = y - center;
+        final distanceSquared = dx * dx + dy * dy;
+
+        if (distanceSquared <= radius * radius) {
+          // Get source pixel coordinates
+          final srcX = (x * image.width / size)
+              .clamp(0, image.width - 1)
+              .toInt();
+          final srcY = (y * image.height / size)
+              .clamp(0, image.height - 1)
+              .toInt();
+
+          // Get the pixel color
+          final pixel = image.getPixel(srcX, srcY);
+          circle.setPixel(x, y, pixel);
+        } else {
+          // Set transparent pixel
+          circle.setPixel(x, y, img.ColorRgba8(0, 0, 0, 0));
+        }
+      }
+    }
+    return circle;
+  }
+
   // Function to load custom marker icons
   void setCustomMarkerIcon() async {
     // Load custom icons asynchronously
@@ -58,17 +119,21 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
       Icon(Icons.flag),
       color: Colors.red,
     );
-    peopleLocationIcon = await createMarkerFromIcon(
-      Icon(Icons.person, color: Colors.red),
-      color: AppColors.errorColor,
-      // fontSize: 40.sp,
+    // peopleLocationIcon = await createMarkerFromIcon(
+    //   Icon(Icons.person, color: Colors.red),
+    //   color: AppColors.errorColor,
+    //   // fontSize: 40.sp,
+    // );
+    peopleLocationIcon = await _getMarkerIcon(
+      "https://i.pravatar.cc/150?img=30",
     );
     destinationIcon = await createMarkerFromIcon(
       Icon(Icons.flag),
-      color: Colors.green
+      color: Colors.green,
     );
-    pitStopIcon = await createMarkerFromIcon(
-      Icon(Icons.local_parking),
+    pitStopIcon = await BitmapDescriptor.asset(
+      ImageConfiguration(size: Size(40.w, 60.h)),
+      Assets.images.pitstop.path,
     );
 
     setState(() {
@@ -99,9 +164,10 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
           markerId: const MarkerId("pitStop"),
           position: _pitStop,
           infoWindow: const InfoWindow(title: "Pit Stop"),
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueOrange,
-          ),
+          // icon: BitmapDescriptor.defaultMarkerWithHue(
+          //   BitmapDescriptor.hueOrange,
+          // ),
+          icon: pitStopIcon,
         ),
       );
       _markers.add(
@@ -147,7 +213,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
             _polylines = {
               Polyline(
                 polylineId: const PolylineId("route"),
-                color: Colors.blue,
+                color: Color(0xFF4FAF5A),
                 points: points
                     .map((p) => LatLng(p.latitude, p.longitude))
                     .toList(),
@@ -182,6 +248,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
           target: _currentLocation,
           zoom: 14.5,
         ),
+        // mapType: MapType.hybrid,
         myLocationEnabled: true,
         onMapCreated: (controller) => _controller = controller,
         markers: _markers,

@@ -245,28 +245,75 @@ class _GoogleMapsSearchScreenState extends State<GoogleMapsSearchScreen> {
               children: [
                 TextFieldWidget(
                   controller: _searchController,
+                  readOnly: true,
+                  onTap: () {
+                    showModalBottomSheet(
+                      scrollControlDisabledMaxHeightRatio: .9,
+                      context: context,
+                      builder: (context) {
+                        return CustomContainer(
+                          color: Colors.white,
+                          topLeftRadius: 8.r,
+                          topRightRadius: 8.r,
+                          child: Padding(
+                            padding: EdgeInsets.all(24.r),
+                            child: Column(
+                              children: [
+                                TextFieldWidget(
+                                  controller: _searchController,
+                                  hintText: 'Search Location',
+                                  maxLine: 1,
+                                  onChange: (value) {
+                                    placeAutocomplete(value);
+                                  },
+                                ),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: placePrediction.length,
+                                    itemBuilder: (context, index) {
+                                      return LocationListTile(
+                                        location:
+                                            placePrediction[index].description!,
+                                        press: () {
+                                          // Fetch the place details by placeId and update the map
+                                          var placeId =
+                                              placePrediction[index].placeId!;
+                                          _fetchPlaceDetails(placeId);
+                                          // Get.back();
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   hintText: 'Search Location',
                   maxLine: 1,
                   onChange: (value) {
                     placeAutocomplete(value);
                   },
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: placePrediction.length,
-                    itemBuilder: (context, index) {
-                      return LocationListTile(
-                        location: placePrediction[index].description!,
-                        press: () {
-                          // Fetch the place details by placeId and update the map
-                          var placeId = placePrediction[index].placeId!;
-                          _fetchPlaceDetails(placeId);
-                          // Get.back();
-                        },
-                      );
-                    },
-                  ),
-                ),
+                // Expanded(
+                //   child: ListView.builder(
+                //     itemCount: placePrediction.length,
+                //     itemBuilder: (context, index) {
+                //       return LocationListTile(
+                //         location: placePrediction[index].description!,
+                //         press: () {
+                //           // Fetch the place details by placeId and update the map
+                //           var placeId = placePrediction[index].placeId!;
+                //           _fetchPlaceDetails(placeId);
+                //           // Get.back();
+                //         },
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

@@ -104,9 +104,6 @@ class $AssetsIconsGen {
   SvgGenImage get pitStopMap =>
       const SvgGenImage('assets/icons/pitStopMap.svg');
 
-  /// File path: assets/icons/pitstop.png
-  AssetGenImage get pitstop => const AssetGenImage('assets/icons/pitstop.png');
-
   /// File path: assets/icons/policy.svg
   SvgGenImage get policy => const SvgGenImage('assets/icons/policy.svg');
 
@@ -152,7 +149,7 @@ class $AssetsIconsGen {
   SvgGenImage get termsIcon => const SvgGenImage('assets/icons/termsIcon.svg');
 
   /// List of all assets
-  List<dynamic> get values => [
+  List<SvgGenImage> get values => [
     aboutIcon,
     addCreditsIcon,
     authLogo,
@@ -177,7 +174,6 @@ class $AssetsIconsGen {
     onBoardingIcon3,
     pitStopIcon,
     pitStopMap,
-    pitstop,
     policy,
     rideSchedule,
     rideStartIcon,
@@ -216,6 +212,9 @@ class $AssetsImagesGen {
   AssetGenImage get mapPeopleIcon =>
       const AssetGenImage('assets/images/mapPeopleIcon.png');
 
+  /// File path: assets/images/pitstop.png
+  AssetGenImage get pitstop => const AssetGenImage('assets/images/pitstop.png');
+
   /// File path: assets/images/startRideIcon.png
   AssetGenImage get startRideIcon =>
       const AssetGenImage('assets/images/startRideIcon.png');
@@ -235,6 +234,7 @@ class $AssetsImagesGen {
     creditsCard,
     endRideIcon,
     mapPeopleIcon,
+    pitstop,
     startRideIcon,
     supportImage,
     walletImage,

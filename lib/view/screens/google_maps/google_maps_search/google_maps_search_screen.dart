@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:bike_ride_app/app/utils/app_constant.dart';
 import 'package:bike_ride_app/view/models/google_map/autocomplete_prediction.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart' hide LocationAccuracy;
 
 class GoogleMapsSearchScreen extends StatefulWidget {
   const GoogleMapsSearchScreen({super.key});
@@ -25,7 +25,9 @@ class _GoogleMapsSearchScreenState extends State<GoogleMapsSearchScreen> {
   Position? _currentPosition;
   GoogleMapController? _controller;
   final TextEditingController _searchController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   List<AutocompletePrediction> placePrediction = [];
+  Timer? _debounce;
 
   Set<Marker> _currentLocationMarker = {};
   Set<Polyline> _polylines = {};
@@ -35,6 +37,12 @@ class _GoogleMapsSearchScreenState extends State<GoogleMapsSearchScreen> {
   void initState() {
     super.initState();
     _listenCurrentLocation();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
+    _searchController.addListener(() {
+      setState(() {});
+    });
   }
 
   Future<void> _getCurrentLocation() async {
@@ -195,6 +203,7 @@ class _GoogleMapsSearchScreenState extends State<GoogleMapsSearchScreen> {
           CustomButton(
             label: 'Done',
             onPressed: () {
+              Get.back();
               // You can handle the "Done" action here
             },
             width: 70.w,
@@ -237,7 +246,7 @@ class _GoogleMapsSearchScreenState extends State<GoogleMapsSearchScreen> {
             },
             markers: _currentLocationMarker,
             polylines: _polylines,
-            onTap: _addMarker, // Listen to map tap event and add marker
+            // onTap: _addMarker, // Listen to map tap event and add marker
           ),
           Padding(
             padding: EdgeInsets.all(24.r),
@@ -245,57 +254,64 @@ class _GoogleMapsSearchScreenState extends State<GoogleMapsSearchScreen> {
               children: [
                 TextFieldWidget(
                   controller: _searchController,
-                  readOnly: true,
+                  // Remove readOnly: true to allow immediate typing
+                  hintText: 'Search Location',
+                  maxLine: 1,
                   onTap: () {
                     showModalBottomSheet(
-                      scrollControlDisabledMaxHeightRatio: .9,
                       context: context,
+                      isScrollControlled: true, // Add this line
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.of(context).size.height * 0.9,
+                      ),
                       builder: (context) {
-                        return CustomContainer(
-                          color: Colors.white,
-                          topLeftRadius: 8.r,
-                          topRightRadius: 8.r,
-                          child: Padding(
-                            padding: EdgeInsets.all(24.r),
-                            child: Column(
-                              children: [
-                                TextFieldWidget(
-                                  controller: _searchController,
-                                  hintText: 'Search Location',
-                                  maxLine: 1,
-                                  onChange: (value) {
-                                    placeAutocomplete(value);
-                                  },
-                                ),
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: placePrediction.length,
-                                    itemBuilder: (context, index) {
-                                      return LocationListTile(
-                                        location:
-                                            placePrediction[index].description!,
-                                        press: () {
-                                          // Fetch the place details by placeId and update the map
-                                          var placeId =
-                                              placePrediction[index].placeId!;
-                                          _fetchPlaceDetails(placeId);
-                                          // Get.back();
-                                        },
-                                      );
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom, // Account for keyboard
+                          ),
+                          child: CustomContainer(
+                            color: Colors.white,
+                            topLeftRadius: 8.r,
+                            topRightRadius: 8.r,
+                            child: Padding(
+                              padding: EdgeInsets.all(24.r),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextFieldWidget(
+                                    controller: _searchController,
+                                    hintText: 'Search Location',
+                                    maxLine: 1,
+                                    autoFocus: true, // Auto-focus when bottom sheet opens
+                                    onChange: (value) {
+                                      if (_debounce?.isActive ?? false) _debounce!.cancel();
+                                      _debounce = Timer(const Duration(milliseconds: 500), () {
+                                        placeAutocomplete(value);
+                                      });
                                     },
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    child: ListView.builder(
+                                      itemCount: placePrediction.length,
+                                      itemBuilder: (context, index) {
+                                        return LocationListTile(
+                                          location: placePrediction[index].description!,
+                                          press: () {
+                                            var placeId = placePrediction[index].placeId!;
+                                            _fetchPlaceDetails(placeId);
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
                       },
                     );
-                  },
-                  hintText: 'Search Location',
-                  maxLine: 1,
-                  onChange: (value) {
-                    placeAutocomplete(value);
                   },
                 ),
                 // Expanded(

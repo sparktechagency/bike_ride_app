@@ -18,6 +18,8 @@ class TextFieldWidget extends StatelessWidget {
     this.onChange,
     this.onTap,
     this.readOnly,
+    this.focusNode,
+    this.autoFocus,
   });
 
   final String hintText;
@@ -33,12 +35,15 @@ class TextFieldWidget extends StatelessWidget {
   final Function(String)? onChange;
   final Function()? onTap;
   final bool? readOnly;
+  final FocusNode? focusNode;
+  final bool? autoFocus;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       onTap: onTap,
+      autofocus: autoFocus ?? false,
       readOnly: readOnly ?? false,
       textInputAction: textInputAction,
       cursorColor: AppColors.primaryColor,
@@ -46,6 +51,7 @@ class TextFieldWidget extends StatelessWidget {
       minLines: 1,
       maxLines: maxLine,
       onChanged: onChange,
+      focusNode: focusNode,
       style: TextStyle(
         color: Colors.black,
         fontSize: 16.sp,

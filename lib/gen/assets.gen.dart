@@ -22,6 +22,10 @@ class $AssetsIconsGen {
   SvgGenImage get addCreditsIcon =>
       const SvgGenImage('assets/icons/addCreditsIcon.svg');
 
+  /// File path: assets/icons/appSplashLogo.svg
+  SvgGenImage get appSplashLogo =>
+      const SvgGenImage('assets/icons/appSplashLogo.svg');
+
   /// File path: assets/icons/authLogo.svg
   SvgGenImage get authLogo => const SvgGenImage('assets/icons/authLogo.svg');
 
@@ -152,6 +156,7 @@ class $AssetsIconsGen {
   List<SvgGenImage> get values => [
     aboutIcon,
     addCreditsIcon,
+    appSplashLogo,
     authLogo,
     calenderIcon,
     changePasswordIcon,

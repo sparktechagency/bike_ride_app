@@ -19,7 +19,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Future<void> _moveToNextScreen() async{
+  Future<void> _moveToNextScreen() async {
     await Future.delayed(Duration(seconds: 3));
     Get.offAllNamed(AppRoutes.onboardingScreen);
   }
@@ -35,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
       SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent),
     );
     return Scaffold(
+      // body: Assets.icons.appSplashLogo.svg(),
       body: Stack(
         children: [
           CustomContainer(
@@ -51,7 +52,8 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               children: [
                 SizedBox(height: 287.h),
-                Assets.icons.splashIcon.svg(height: 170.h, width: 200.w),
+                Assets.icons.authLogo.svg(height: 170.h, width: 200.w),
+                SizedBox(height: 16.h),
                 CustomText(
                   text: 'Plan your ride. Track your crew. Ride safer.',
                   color: AppColors.primaryColor,
